@@ -2,13 +2,14 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SignInComponent } from './pages/auth/sign-in/sign-in.component';
+import { IndexComponent } from './pages/index/index.component';
 
 export const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: IndexComponent,
-  //   canActivate: [signInGuard]
-  // },
+  {
+    path: '',
+    component: IndexComponent,
+    // canActivate: [signInGuard]
+  },
   {
     path: 'sign-in',
     component: SignInComponent,
@@ -41,8 +42,8 @@ export const routes: Routes = [
         loadChildren: () => import(`./pages/profile/routes`).then(m => m.PROFILE_ROUTES),
       },
       {
-        path: 'collab',
-        loadChildren: () => import(`./pages/collab/routes`).then(m => m.COLLAB_ROUTES),
+        path: 'company-holidays',
+        loadChildren: () => import(`./pages/company-holidays/routes`).then(m => m.HOLIDAYS_ROUTES),
       },
       {
         path: 'leaves',
@@ -57,11 +58,19 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'approval',
+        path: 'contracts',
         canActivate: [],
         loadChildren: () =>
-          import('./pages/approval/routes').then(
-            m => m.APPROVAL_ROUTES,
+          import('./pages/contracts/routes').then(
+            m => m.CONTRACTS_ROUTES,
+          ),
+      },
+      {
+        path: 'documents',
+        canActivate: [],
+        loadChildren: () =>
+          import('./pages/documents/routes').then(
+            m => m.DOCUMENTS_ROUTES,
           ),
       },
       // {

@@ -18,25 +18,25 @@ export const sidenavRouteInfo: NavigationItem[] = [
       {
         type: 'link',
         label: 'Employee Leave Status',
-        route: 'employees',
+        route: 'employees/leaves',
         icon: 'receipt_long',
       },
       {
         type: 'link',
         label: 'Employee List',
-        route: 'employees/manager',
+        route: 'employees/list',
         icon: 'list',
       },
       {
         type: 'link',
         label: 'Employee Company Request',
-        route: 'employees/employee-company-request',
+        route: 'employees/requests',
         icon: 'add_business',
       },
       {
         type: 'link',
         label: 'Retired Employee List',
-        route: 'employees/retired-employee-list',
+        route: 'employees/retired',
         icon: 'list',
       },
     ]
@@ -48,7 +48,7 @@ export const sidenavRouteInfo: NavigationItem[] = [
       {
         type: 'link',
         label: 'Holiday Management',
-        route: 'cooperation/company-holiday-list',
+        route: 'company-holidays',
         icon: 'update',
       }
     ]
@@ -61,7 +61,7 @@ export const sidenavRouteInfo: NavigationItem[] = [
       {
         type: 'link',
         label: 'Important documents',
-        route: 'document-mngmt/document-list',
+        route: 'documents',
         icon: 'folder_special',
       }
     ]
@@ -74,7 +74,7 @@ export const sidenavRouteInfo: NavigationItem[] = [
       {
         type: 'link',
         label: 'Contract management',
-        route: 'contract-mngmt/contract-list',
+        route: 'contracts',
         icon: 'handshake',
       }
     ]
