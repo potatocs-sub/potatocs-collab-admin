@@ -1,43 +1,147 @@
-/* Structure */
-.example-container {
-  position: relative;
+.mainContentContainer {
+  padding: 40px 40px;
+  margin: 0 auto;
+  height: 100%;
 }
 
-.example-table-container {
-  position: relative;
-  min-height: 200px;
-  max-height: 400px;
-  overflow: auto;
+.example-spacer {
+  flex: 1 1 auto;
 }
 
-table {
+.mainTitle {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.historyTableBox {
+  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+  // min-width: 1200px;
   width: 100%;
 }
 
-.example-loading-shade {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 56px;
-  right: 0;
-  background: rgba(0, 0, 0, 0.15);
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.example-rate-limit-reached {
-  max-width: 360px;
+.historyTable {
+  width: 100%;
   text-align: center;
+
+  th {
+    text-align: center;
+  }
+
+  box-shadow: none;
 }
 
-/* Column Widths */
-.mat-column-number,
-.mat-column-state {
-  max-width: 64px;
+.mat-header-row {
+  background-color: #00154F;
+
+  th {
+    color: #fff;
+  }
 }
 
-.mat-column-created {
-  max-width: 124px;
+.filter {
+  background-color: #fff;
+}
+
+.backBtn {
+  background: #F4AF1B;
+  color: #fff;
+  width: 100px;
+}
+
+.editBtn {
+  background: #00154F;
+  color: #fff;
+  width: 100px;
+}
+
+.employeeBtn {
+  background: #00154F;
+  color: #fff;
+  width: 100px;
+}
+
+.tableUpper {
+  position: relative;
+  padding: 0 20px;
+}
+
+.filterDiv {
+  padding-left: 10px;
+  width: 250px;
+}
+
+.excelBtn {
+  background: #00154F;
+  color: #fff;
+  // width: 130px;
+  align-content: center;
+  margin: 0 5px;
+
+}
+
+.excelBox {
+  padding: 10px;
+  background: #c3c4c9;
+  border-radius: 5px;
+}
+
+
+
+@media screen and (max-width: 780px) {
+
+  .mainContentContainer {
+    padding: 10px 10px;
+  }
+
+  .mainTitle {
+    margin: 20px auto;
+  }
+
+  .tableUpper {
+    display: flex;
+    padding: 0 0;
+    flex-direction: column !important;
+  }
+
+  .excelBox {
+    max-width: 100%;
+    padding: 0 25px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 0.7em;
+    display: block;
+    white-space: pre-wrap !important;
+  }
+
+
+  .historyTableBox {
+    word-break: break-all;
+
+
+    th {
+      padding: 3px 5px;
+    }
+
+    td {
+      padding: 3px 5px;
+      font-size: 0.7em;
+
+      button {
+        width: 100%;
+        font-size: 0.9em;
+        padding: 0;
+      }
+    }
+  }
+
+  .excelContent {
+    button {
+      margin: 10px !important;
+    }
+  }
+
 }

@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="formContainer">
-      <form class="formBox" [formGroup]="setContract" novalidate>
+      <form class="formBox" [formGroup]="setContract">
         <mat-form-field color="accent" appearance="outline" style="width: 100%">
           <mat-label>Start Date</mat-label>
           <input matInput [matDatepicker]="picker1" formControlName="startDate" required>
@@ -33,7 +33,8 @@
     </div>
 
     <div class="btnBox" fxLayout="row" fxLayoutGap="20px">
-      <button mat-raised-button class="confirmBtn" (click)="acceptClick()">Accept</button>
+      <button type="submit" mat-raised-button class="confirmBtn" (click)="acceptClick()"
+        [disabled]="!setContract.valid">Accept</button>
       <button mat-raised-button class="cancelBtn" (click)="onNoClick()">Cancel</button>
     </div>
   </div>

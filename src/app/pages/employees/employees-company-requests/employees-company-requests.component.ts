@@ -38,6 +38,10 @@ export class EmployeesCompanyRequestsComponent {
 
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
+    this.getPendingCompanyRequest()
+  }
+
+  getPendingCompanyRequest() {
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -73,6 +77,7 @@ export class EmployeesCompanyRequestsComponent {
         name: name
       }
     })
+    dialogRef.afterClosed().subscribe(res => this.getPendingCompanyRequest())
 
   }
   rejectRequest(id: any, name: any) { }
