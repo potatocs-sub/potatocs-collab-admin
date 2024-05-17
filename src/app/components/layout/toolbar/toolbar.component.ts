@@ -3,7 +3,7 @@ import { Component, WritableSignal, effect, inject } from '@angular/core';
 import { MaterialsModule } from '../../../materials/materials.module';
 import { SideNavService } from '../../../stores/side-nav/side-nav.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -75,7 +75,7 @@ export class ToolbarComponent {
       notiLabel: 'A new leave request received',
     },
   ];
-
+  router = inject(Router)
   sideNavService = inject(SideNavService)
   authService = inject(AuthService)
 
@@ -92,7 +92,10 @@ export class ToolbarComponent {
     })
   }
 
-
+  logOut() {
+    this.authService.logOut();
+    this.router.navigate(['']);
+  }
 
   openSidenav() {
     this.isSideNavOpen.update(() => true);
