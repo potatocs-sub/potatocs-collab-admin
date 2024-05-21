@@ -1,1 +1,63 @@
-<p>profile works!</p>
+<div class="profile-edit" fxLayout="column">
+    <div class="profile-edit-title">
+        <h2 class="mainTitle">Profile Edit</h2>
+    </div>
+    
+    <!-- 로딩바 -->
+    <!-- @if (isLoadingResults() || isRateLimitReached()) {
+    <div class="example-loading-shade">
+        @if (isLoadingResults()) {
+        <mat-spinner></mat-spinner>
+        }
+        @if (isRateLimitReached()) {
+        <div class="example-rate-limit-reached">
+        API rate limit has been reached. It will be reset in one minute.
+        </div>
+        }
+    </div>
+    } -->
+
+    <div fxLayout="row" class="inputContainer">
+        <div class="profile-image">
+            <div class="profile-photo">
+                <img [src]="profile_img" alt="">
+                <label class="overlay">
+                    <input type="file" #fileInputElement (change)="fileChangeEvent($event)" accept="image/*" />
+                </label>
+            </div>
+            <div class="profile-id">
+                <h4>ID : {{ email }}</h4>
+            </div>
+        </div>
+
+        <form [formGroup]="editProfileForm" class="profile_input" (ngSubmit)="onSubmit()">
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input class="data-input"  type="text" matInput formControlName="name" autocomplete="text">
+                    <mat-error *ngIf="editProfileForm.controls['name'].hasError('required')">
+                        name is required.
+                    </mat-error>
+                </mat-form-field>               
+
+            <mat-form-field>
+                <mat-label>New Password</mat-label>
+                <input type="password" matInput formControlName="password" autocomplete="password">
+                <mat-error
+              *ngIf="editProfileForm.controls['password'].hasError('minlength') || editProfileForm.controls['password'].hasError('maxlength')">Password is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Confirm Password</mat-label>
+                <input type="password" matInput formControlName="confirmPassword" autocomplete="password">
+                <mat-error *ngIf="editProfileForm.controls['confirmPassword'].hasError('minlength') || editProfileForm.controls['confirmPassword'].hasError('maxlength')">ConfirmPassword is required</mat-error>
+            </mat-form-field>
+            <mat-error
+                *ngIf="editProfileForm.errors?.['PasswordNoMatch'] && (editProfileForm.touched || editProfileForm.dirty)">
+                password does not match
+            </mat-error>    
+
+            <button class="submitBtn" mat-flat-button (click)="onSubmit()">Edit</button>
+        </form>
+    </div>
+
+</div>
