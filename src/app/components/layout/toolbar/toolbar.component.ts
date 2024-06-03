@@ -10,9 +10,11 @@ import { Router, RouterLink } from '@angular/router';
   standalone: true,
   imports: [MaterialsModule, CommonModule, RouterLink],
   templateUrl: './toolbar.component.html',
-  styleUrl: './toolbar.component.scss'
+  styleUrl: './toolbar.component.scss',
 })
 export class ToolbarComponent {
+  router = inject(Router);
+  
   notiItems = [
     {
       notiType: 'leave-request',
@@ -84,12 +86,10 @@ export class ToolbarComponent {
   isDesktop: WritableSignal<boolean> = this.sideNavService.isDesktop;
   userInfo: WritableSignal<any | null> = this.authService.userInfo;
 
-  constructor(
-
-  ) {
+  constructor() {
     effect(() => {
-      console.log(this.userInfo())
-    })
+      console.log(this.userInfo());
+    });
   }
 
   logOut() {
