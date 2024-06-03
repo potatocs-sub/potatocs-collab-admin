@@ -77,7 +77,7 @@ export class ToolbarComponent {
       notiLabel: 'A new leave request received',
     },
   ];
-  router = inject(Router)
+
   sideNavService = inject(SideNavService)
   authService = inject(AuthService)
 
