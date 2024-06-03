@@ -33,7 +33,6 @@ export class ProfileService {
 
   // 프로필 정보 업데이트하기
   updateProfile(formData: any): Observable<HttpResMsg<any>> {
-    console.log("프로필 변경")
     return this.http.patch<HttpResMsg<any>>(
       this.baseUrl + '/admin/profileChange',
       formData
