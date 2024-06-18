@@ -1,21 +1,22 @@
-
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SignInComponent } from './pages/auth/sign-in/sign-in.component';
-import { IndexComponent } from './pages/index/index.component';
+import { isLoggedInGuard } from './guards/is-logged-in.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    component: IndexComponent,
-    // canActivate: [signInGuard]
+    component: SignInComponent,
+    canActivate: [isLoggedInGuard],
   },
   {
     path: 'sign-in',
+    canActivate: [isLoggedInGuard],
     component: SignInComponent,
   },
   {
     path: 'sign-up',
+    canActivate: [isLoggedInGuard],
     loadComponent: () =>
       import('./pages/auth/sign-up/sign-up.component').then(
         (m) => m.SignUpComponent
@@ -23,6 +24,7 @@ export const routes: Routes = [
   },
   {
     path: 'find-pw',
+    canActivate: [isLoggedInGuard],
     loadComponent: () =>
       import(`./pages/auth/find-pw/find-pw.component`).then(
         (m) => m.FindPwComponent
@@ -31,60 +33,34 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [],
+    canActivate: [isLoggedInGuard],
     children: [
       {
-        path: 'main',
-        loadChildren: () => import(`./pages/main/routes`).then((m) => m.MAIN_ROUTES),
-      },
-      {
         path: 'profile',
-        loadChildren: () => import(`./pages/profile/routes`).then(m => m.PROFILE_ROUTES),
+        loadChildren: () =>
+          import(`./pages/profile/routes`).then((m) => m.PROFILE_ROUTES),
       },
       {
-        path: 'company-holidays',
-        loadChildren: () => import(`./pages/company-holidays/routes`).then(m => m.HOLIDAYS_ROUTES),
-      },
-      {
-        path: 'leaves',
-        loadChildren: () => import('./pages/leaves/routes').then(m => m.LEAVES_ROUTES),
+        path: 'dashboard',
+        loadChildren: () =>
+          import(`./pages/dashboard/routes`).then((m) => m.DASHBOARD_ROUTES),
       },
       {
         path: 'employees',
         canActivate: [],
         loadChildren: () =>
-          import('./pages/employees/routes').then(
-            m => m.EMPLOYEES_ROUTES,
-          ),
+          import('./pages/employees/routes').then((m) => m.EMPLOYEES_ROUTES),
       },
       {
-        path: 'contracts',
-        canActivate: [],
+        path: 'holidays',
         loadChildren: () =>
-          import('./pages/contracts/routes').then(
-            m => m.CONTRACTS_ROUTES,
-          ),
+          import(`./pages/holidays/routes`).then((m) => m.HOLIDAYS_ROUTES),
       },
-      {
-        path: 'documents',
-        canActivate: [],
-        loadChildren: () =>
-          import('./pages/documents/routes').then(
-            m => m.DOCUMENTS_ROUTES,
-          ),
-      },
-      // {
-      //   path: '',
-      //   redirectTo: 'main',
-      //   pathMatch: 'full',
-      // },
     ],
   },
-  // 잘못된 URL을 사용했을때 메인으로 보냄
   {
     path: '**',
-    // redirectTo: 'welcome',
-    redirectTo: 'main',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
 ];

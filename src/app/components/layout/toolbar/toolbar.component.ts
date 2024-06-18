@@ -13,73 +13,9 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './toolbar.component.scss',
 })
 export class ToolbarComponent {
+  sideNavService = inject(SideNavService);
+  authService = inject(AuthService);
   router = inject(Router);
-  
-  notiItems = [
-    {
-      notiType: 'leave-request',
-      isRead: false,
-      iconText: 'open_in_browser',
-      notiLabel: 'A new leave request received',
-    },
-    {
-      notiType: 'company-request',
-      isRead: false,
-      iconText: 'work_outline',
-      notiLabel: 'A new company request received',
-    },
-    {
-      notiType: 'company-res-y',
-      isRead: false,
-      iconText: 'done_outline',
-      notiLabel: 'The company request has been accepted',
-    },
-    {
-      notiType: 'leave-res-n',
-      isRead: false,
-      iconText: 'block',
-      notiLabel: 'The leave request has been rejected',
-    },
-    {
-      notiType: 'company-res-n',
-      isRead: false,
-      iconText: 'block',
-      notiLabel: 'The company request has been rejected',
-    },
-    {
-      notiType: 'leave-request',
-      isRead: false,
-      iconText: 'open_in_browser',
-      notiLabel: 'A new leave request received',
-    },
-    {
-      notiType: 'leave-res-y',
-      isRead: false,
-      iconText: 'done_outline',
-      notiLabel: 'A new leave request has been accepted',
-    },
-    {
-      notiType: 'leave-request',
-      isRead: false,
-      iconText: 'open_in_browser',
-      notiLabel: 'A new leave request received',
-    },
-    {
-      notiType: 'leave-request',
-      isRead: false,
-      iconText: 'open_in_browser',
-      notiLabel: 'A new leave request received',
-    },
-    {
-      notiType: 'leave-request',
-      isRead: false,
-      iconText: 'open_in_browser',
-      notiLabel: 'A new leave request received',
-    },
-  ];
-
-  sideNavService = inject(SideNavService)
-  authService = inject(AuthService)
 
   // 시그널 변수 선언
   isSideNavOpen: WritableSignal<boolean> = this.sideNavService.isSideNavOpen;
@@ -92,12 +28,12 @@ export class ToolbarComponent {
     });
   }
 
+  openSidenav() {
+    this.isSideNavOpen.update(() => true);
+  }
+
   logOut() {
     this.authService.logOut();
     this.router.navigate(['']);
-  }
-
-  openSidenav() {
-    this.isSideNavOpen.update(() => true);
   }
 }

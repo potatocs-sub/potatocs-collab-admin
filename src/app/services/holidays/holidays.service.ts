@@ -1,24 +1,39 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HolidaysService {
   private baseUrl = environment.apiUrl;
-  private http = inject(HttpClient)
-  constructor() { }
 
-  getHolidayList(id: string, active: string, direction: string, pageIndex: number, pageSize: number) {
-    return this.http.get(this.baseUrl + '/nsmarts/holidays', { params: { id, active, direction, pageIndex, pageSize } })
+  private http = inject(HttpClient);
+  constructor() {}
+
+  // 회사 휴일 목록 불러오기
+  getCompanyHoliday(
+    active: string,
+    direction: string,
+    pageIndex: number,
+    pageSize: number
+  ) {
+    return this.http.get(this.baseUrl + '/admin/leave/getCompanyHolidayList', {
+      params: { active, direction, pageIndex, pageSize },
+    });
   }
 
-  addHoliday(holidayData: any) {
-    return this.http.post(this.baseUrl + '/nsmarts/holidays', holidayData)
+  addCompanyHoliday(data: any) {
+    return this.http.post(
+      this.baseUrl + '/admin/leave/addCompanyHoliday',
+      data
+    );
   }
 
-  deleteHoliday(holidayId: string, countryId: string) {
-    return this.http.delete(this.baseUrl + '/nsmarts/holidays/' + holidayId, { params: { 'countryId': countryId } })
+  deleteCompanyHoliday(companyHolidayId: any) {
+    return this.http.post(
+      this.baseUrl + '/admin/leave/deleteCompanyHoliday',
+      companyHolidayId
+    );
   }
 }

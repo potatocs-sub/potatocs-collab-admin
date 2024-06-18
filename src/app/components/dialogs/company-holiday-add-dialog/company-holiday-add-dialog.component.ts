@@ -5,8 +5,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from '../../../stores/dialog/dialog.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import moment from 'moment';
-import { CompaniesService } from '../../../services/companies/companies.service';
-import { HolidayMngmtService } from '../../../services/corporation/holiday-mngmt.service';
+
+import { HolidaysService } from '../../../services/holidays/holidays.service';
 
 @Component({
   selector: 'app-company-holiday-add-dialog',
@@ -22,7 +22,7 @@ export class CompanyHolidayAddDialogComponent {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<CompanyHolidayAddDialogComponent>,
     private dialogService: DialogService,
-    private holidayMngmtService: HolidayMngmtService,
+    private holidaysService: HolidaysService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     console.log(data);
@@ -54,7 +54,7 @@ export class CompanyHolidayAddDialogComponent {
       }
     }
 
-    this.holidayMngmtService.addCompanyHoliday(companyHolidayData).subscribe({
+    this.holidaysService.addCompanyHoliday(companyHolidayData).subscribe({
       next: (data: any) => {
         if (data.message == 'Success add company holiday') {
           this.dialogRef.close();
@@ -69,8 +69,8 @@ export class CompanyHolidayAddDialogComponent {
         } else if (err.error.message == 'Addings company holiday Error') {
           this.dialogService.openDialogNegative('An error has occurred.');
         }
-      }
-  });
+      },
+    });
   }
 
   // datePickChange(dateValue: any) {

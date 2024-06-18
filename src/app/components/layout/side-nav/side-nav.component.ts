@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [MaterialsModule, CommonModule, SideNavItemComponent, RouterModule],
   templateUrl: './side-nav.component.html',
-  styleUrl: './side-nav.component.scss'
+  styleUrl: './side-nav.component.scss',
 })
 export class SideNavComponent {
   navItems: NavigationItem[] = sidenavRouteInfo;

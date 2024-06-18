@@ -1,82 +1,61 @@
 // rounting info
-import { NavigationItem } from '../interfaces/navigation-item.interface'
+import { NavigationItem } from '../interfaces/navigation-item.interface';
 export const sidenavRouteInfo: NavigationItem[] = [
-
-  // dashboard
-  {
-    type: 'link',
-    label: 'Dashboard',
-    route: '/main',
-    icon: 'dashboard',
-    isNsAdmin: true
-  },
-  // Leave
+  // DASHBOARD
   {
     type: 'subheading',
-    label: 'Employee Management',
+    label: 'DASHBOARD',
     children: [
       {
         type: 'link',
-        label: 'Employee Leave Status',
-        route: 'employees/leaves',
-        icon: 'receipt_long',
+        label: 'Dashboard',
+        route: '/dashboard',
+        icon: 'dashboard',
       },
+    ],
+  },
+  // EMPLOYEE MANAGEMENT
+  {
+    type: 'subheading',
+    label: 'EMPLOYEE MANAGEMENT',
+    children: [
       {
         type: 'link',
         label: 'Employee List',
         route: 'employees/list',
-        icon: 'list',
-      },
-      {
-        type: 'link',
-        label: 'Employee Company Request',
-        route: 'employees/requests',
-        icon: 'add_business',
+        icon: 'people',
       },
       {
         type: 'link',
         label: 'Retired Employee List',
         route: 'employees/retired',
-        icon: 'list',
+        icon: 'people_outline',
       },
-    ]
+      {
+        type: 'link',
+        label: 'Employee Leave Status',
+        route: 'employees/leave-status',
+        icon: 'receipt_long',
+      },
+      {
+        type: 'link',
+        label: 'Employee Request',
+        route: 'employees/request',
+        icon: 'add_business',
+      },
+    ],
   },
+  // HOLIDAY MANAGEMENT
   {
     type: 'subheading',
-    label: 'Corporation',
+    label: 'HOLIDAY MANAGEMENT',
     children: [
       {
         type: 'link',
-        label: 'Holiday Management',
-        route: 'company-holidays',
-        icon: 'update',
-      }
-    ]
+        label: 'Holiday List',
+        route: 'holidays',
+        icon: 'today',
+      },
+    ],
   },
-  // document 
-  {
-    type: 'subheading',
-    label: 'Documents',
-    children: [
-      {
-        type: 'link',
-        label: 'Important documents',
-        route: 'documents',
-        icon: 'folder_special',
-      }
-    ]
-  },
-  // contract 
-  {
-    type: 'subheading',
-    label: 'Contract',
-    children: [
-      {
-        type: 'link',
-        label: 'Contract management',
-        route: 'contracts',
-        icon: 'handshake',
-      }
-    ]
-  }
 ];

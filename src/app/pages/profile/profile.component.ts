@@ -2,8 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { MaterialsModule } from '../../materials/materials.module';
 import { DialogService } from '../../stores/dialog/dialog.service';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { ProfileService } from '../../services/user/profile.service';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { ProfileService } from '../../services/profile/profile.service';
 import { confirmPasswordValidator } from './confirm-password.validator';
 
 export const comparePasswordValidator: ValidatorFn = (
@@ -148,4 +157,3 @@ export class ProfileComponent {
     }
   }
 }
-
