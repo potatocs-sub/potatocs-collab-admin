@@ -1,0 +1,66 @@
+<div class="m-10 max-w-[800px]">
+  <div class="text-[22px] font-bold mb-4">Employment Contract Accept</div>
+
+  <form [formGroup]="employmentContractForm" novalidate>
+    <div
+      class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
+    >
+      <div
+        class="flex items-center rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[30%]"
+      >
+        <span>Start Date</span>
+      </div>
+      <mat-form-field appearance="outline" class="flex-1 pt-[21px] pl-2">
+        <mat-label>Start Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker1"
+          formControlName="startDate"
+          required
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error
+          *ngIf="
+            employmentContractForm.controls['startDate'].hasError('required')
+          "
+        >
+          Please enter start date.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div
+      class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
+    >
+      <div
+        class="flex items-center rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[30%]"
+      >
+        <span>End Date</span>
+      </div>
+      <mat-form-field appearance="outline" class="flex-1 pt-[21px] pl-2">
+        <mat-label>End Date</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="endDate" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-row justify-center items-center gap-5 mt-8">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="acceptEmploymentContract()"
+        [disabled]="employmentContractForm.invalid"
+      >
+        Request
+      </button>
+    </div>
+  </form>
+</div>

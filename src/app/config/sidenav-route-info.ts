@@ -39,8 +39,8 @@ export const sidenavRouteInfo: NavigationItem[] = [
       },
       {
         type: 'link',
-        label: 'Employee Request',
-        route: 'employees/request',
+        label: 'Employment Contract',
+        route: 'employees/contract',
         icon: 'add_business',
       },
     ],

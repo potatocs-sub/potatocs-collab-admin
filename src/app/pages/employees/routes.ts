@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeesRetiredComponent } from './employees-retired/employees-retired.component';
 import { EmployeesLeaveStatusComponent } from './employees-leave-status/employees-leave-status.component';
-import { EmployeesRequestComponent } from './employees-request/employees-request.component';
+import { EmploymentContractComponent } from './employment-contract/employment-contract.component';
 
 export const EMPLOYEES_ROUTES: Route[] = [
   {
@@ -19,11 +19,11 @@ export const EMPLOYEES_ROUTES: Route[] = [
     loadComponent: () => EmployeesLeaveStatusComponent,
   },
   {
-    path: 'request', // 직원들 회원가입 요청
-    loadComponent: () => EmployeesRequestComponent,
+    path: 'contract', // 고용 계약 목록
+    loadComponent: () => EmploymentContractComponent,
   },
   {
-    path: 'retired', // 퇴사자 명단
+    path: 'retired', // 퇴사 직원들 목록
     loadComponent: () => EmployeesRetiredComponent,
   },
   {

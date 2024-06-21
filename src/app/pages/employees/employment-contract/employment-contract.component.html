@@ -1,0 +1,110 @@
+<div class="m-10">
+  <div class="text-[22px] font-bold mb-4">Employment Contract</div>
+
+  <div>
+    <div class="flex items-center justify-between">
+      <form [formGroup]="searchForm" novalidate>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            type="text"
+            spellcheck="false"
+            formControlName="nameFormControl"
+          />
+        </mat-form-field>
+        <mat-form-field class="ml-3">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="text"
+            spellcheck="false"
+            formControlName="emailFormControl"
+          />
+        </mat-form-field>
+        <button (click)="getEmploymentContract()">
+          <mat-icon
+            class="w-[30px] h-[30px] text-[30px] hover:text-[#3f51b5] ml-3"
+            >youtube_searched_for</mat-icon
+          >
+        </button>
+      </form>
+    </div>
+
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      matSortActive="createdAt"
+      matSortDisableClear
+      matSortDirection="desc"
+    >
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="font-bold">Name</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef class="font-bold">Email</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.email }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef class="font-bold">Status</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.status }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef class="font-bold">
+          Submitted Date
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdAt | date : "YYYY-MM-dd" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="btns">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div>
+            <button
+              mat-stroked-button
+              color="primary"
+              class="mr-2"
+              (click)="accept(element._id, element.name)"
+            >
+              Accept
+            </button>
+
+            <button
+              mat-stroked-button
+              color="accent"
+              (click)="reject(element._id, element.name)"
+            >
+              Reject
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center p-5" colspan="9999">No data</td>
+      </tr>
+    </table>
+    <mat-paginator
+      [length]="resultsLength"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>
