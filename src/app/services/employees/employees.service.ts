@@ -61,7 +61,7 @@ export class EmployeesService {
   // admin Employee List excel import 하는 부분
   importEmployeeList(data: any) {
     return this.http.post(
-      this.baseUrl + '/admin/leave/importEmployeeList',
+      this.baseUrl + '/admin/employees/importEmployeeList',
       data
     );
   }
