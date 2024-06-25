@@ -11,6 +11,7 @@ import { DialogService } from '../../../stores/dialog/dialog.service';
 import { CommonService } from '../../../services/common/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ExcelService } from '../../../services/excel/excel.service';
+import { Router } from '@angular/router';
 
 export class Contact {
   name: string = '';
@@ -36,6 +37,7 @@ export class EmployeeListComponent {
   dialog = inject(MatDialog);
   fb = inject(FormBuilder);
   excelService = inject(ExcelService);
+  router = inject(Router);
 
   displayedColumns: string[] = [
     'name',
@@ -245,7 +247,9 @@ export class EmployeeListComponent {
     }
   }
 
-  editInfo(id: any) {}
+  editInfo(id: any) {
+    this.router.navigate(['employees/edit', id]);
+  }
 
   getMyManagerEmployeeList(managerID: any, managerName: any) {
     this.managerName = managerName;

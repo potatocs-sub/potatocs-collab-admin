@@ -3,6 +3,7 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeesRetiredComponent } from './employees-retired/employees-retired.component';
 import { EmployeesLeaveStatusComponent } from './employees-leave-status/employees-leave-status.component';
 import { EmploymentContractComponent } from './employment-contract/employment-contract.component';
+import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 
 export const EMPLOYEES_ROUTES: Route[] = [
   {
@@ -13,6 +14,10 @@ export const EMPLOYEES_ROUTES: Route[] = [
   {
     path: 'list', // 직원들 목록
     loadComponent: () => EmployeeListComponent,
+  },
+  {
+    path: 'edit/:id', // 직원들 목록
+    loadComponent: () => EditEmployeeComponent,
   },
   {
     path: 'leave-status', // 직원들 휴가 목록

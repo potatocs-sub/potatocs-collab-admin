@@ -32,20 +32,22 @@ export class EmployeesService {
 
   // edit 눌렀을때 정보 가져오기
   getEmployeeInfo(id: any) {
-    return this.http.get(this.baseUrl + '/admin/leave/getEmployeeInfo/' + id);
+    return this.http.get(
+      this.baseUrl + '/admin/employees/getEmployeeInfo/' + id
+    );
   }
 
   // edit-info 에서 Edit Profile 에 있는 edit을 누르면
   putEmployeeProfileInfo(sendData: any) {
     return this.http.put(
-      this.baseUrl + '/admin/leave/editEmployeeProfileInfo',
+      this.baseUrl + '/admin/employees/editEmployeeProfileInfo',
       sendData
     );
   }
 
   putEmployeeLeaveInfo(sendData: any) {
     return this.http.put(
-      this.baseUrl + '/admin/leave/editEmployeeLeaveInfo',
+      this.baseUrl + '/admin/employees/editEmployeeLeaveInfo',
       sendData
     );
   }
