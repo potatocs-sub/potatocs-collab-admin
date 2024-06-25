@@ -10,8 +10,9 @@ export class EmployeesService {
   private baseUrl = environment.apiUrl;
   private http = inject(HttpClient);
   constructor() {}
-  // admin Employee List 나오는 부분
-  getEmployees(
+
+  // 직원 목록
+  getEmployeeList(
     nameFormControl: string,
     active: string,
     direction: string,
@@ -30,24 +31,23 @@ export class EmployeesService {
     });
   }
 
-  // edit 눌렀을때 정보 가져오기
+  // 직원 상세 조회
   getEmployeeInfo(id: any) {
-    return this.http.get(
-      this.baseUrl + '/admin/employees/getEmployeeInfo/' + id
-    );
+    return this.http.get(this.baseUrl + '/admin/employees/' + id);
   }
 
-  // edit-info 에서 Edit Profile 에 있는 edit을 누르면
-  putEmployeeProfileInfo(sendData: any) {
+  // 직원 디테일 수정
+  editEmployeeDetail(sendData: any) {
     return this.http.put(
-      this.baseUrl + '/admin/employees/editEmployeeProfileInfo',
+      this.baseUrl + '/admin/employees/editEmployeeDetail',
       sendData
     );
   }
 
-  putEmployeeLeaveInfo(sendData: any) {
+  // 직원 휴가 수정
+  editEmployeeLeave(sendData: any) {
     return this.http.put(
-      this.baseUrl + '/admin/employees/editEmployeeLeaveInfo',
+      this.baseUrl + '/admin/employees/editEmployeeLeave',
       sendData
     );
   }
@@ -60,10 +60,10 @@ export class EmployeesService {
     );
   }
 
-  // admin Employee List excel import 하는 부분
-  importEmployeeList(data: any) {
+  // 직원 목록 excel 추가
+  addExcelEmployeeList(data: any) {
     return this.http.post(
-      this.baseUrl + '/admin/employees/importEmployeeList',
+      this.baseUrl + '/admin/employees/addExcelEmployeeList',
       data
     );
   }

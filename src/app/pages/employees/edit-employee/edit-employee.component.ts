@@ -105,26 +105,24 @@ export class EditEmployeeComponent {
               employeeInfo.emp_end_date = null;
             }
 
-            this.employeesService
-              .putEmployeeProfileInfo(employeeInfo)
-              .subscribe(
-                (data: any) => {
-                  if (data.message == 'updated') {
-                    this.router.navigate(['employees/list']);
-                    this.dialogService.openDialogPositive(
-                      'Successfully, the information has been edited!'
-                    );
-                  }
-                },
-                (err) => {
-                  console.log(err);
-                  if (err.error.message == 'An error has occurred') {
-                    this.dialogService.openDialogNegative(
-                      'An error has occurred.'
-                    );
-                  }
+            this.employeesService.editEmployeeDetail(employeeInfo).subscribe(
+              (data: any) => {
+                if (data.message == 'updated') {
+                  this.router.navigate(['employees/list']);
+                  this.dialogService.openDialogPositive(
+                    'Successfully, the information has been edited!'
+                  );
                 }
-              );
+              },
+              (err) => {
+                console.log(err);
+                if (err.error.message == 'An error has occurred') {
+                  this.dialogService.openDialogNegative(
+                    'An error has occurred.'
+                  );
+                }
+              }
+            );
           }
         });
     }
@@ -146,7 +144,7 @@ export class EditEmployeeComponent {
               replacement_leave: +formValue.replacement_leave,
             };
 
-            this.employeesService.putEmployeeLeaveInfo(employeeInfo).subscribe(
+            this.employeesService.editEmployeeLeave(employeeInfo).subscribe(
               (data: any) => {
                 if (data.message == 'updated') {
                   this.router.navigate(['employees/list']);

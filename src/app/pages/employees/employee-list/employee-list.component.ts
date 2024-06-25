@@ -84,7 +84,7 @@ export class EmployeeListComponent {
         switchMap(() => {
           this.isLoadingResults = true;
           return this.employeesService
-            .getEmployees(
+            .getEmployeeList(
               this.searchForm.value.nameFormControl,
               this.sort.active,
               this.sort.direction,
@@ -183,7 +183,7 @@ export class EmployeeListComponent {
         }
       });
 
-      this.employeesService.importEmployeeList(this.importContacts).subscribe(
+      this.employeesService.addExcelEmployeeList(this.importContacts).subscribe(
         async (data: any) => {
           if (data.message == 'success') {
             this.dialogService.openDialogPositive(
