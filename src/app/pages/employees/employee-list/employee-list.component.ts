@@ -54,6 +54,7 @@ export class EmployeeListComponent {
   employeeList = new MatTableDataSource();
   searchForm: FormGroup;
   managerName = '';
+  managerID = '';
   isRollover = false;
 
   pageSize = 10;
@@ -76,6 +77,8 @@ export class EmployeeListComponent {
   }
 
   getEmployeeList() {
+    this.managerName = '';
+
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
     merge(this.sort.sortChange, this.paginator.page)
@@ -86,6 +89,7 @@ export class EmployeeListComponent {
           return this.employeesService
             .getEmployeeList(
               this.searchForm.value.nameFormControl,
+              '',
               this.sort.active,
               this.sort.direction,
               this.paginator.pageIndex,
@@ -253,6 +257,43 @@ export class EmployeeListComponent {
 
   getMyManagerEmployeeList(managerID: any, managerName: any) {
     this.managerName = managerName;
-    // Call service to fetch manager's employee list and handle as needed.
+    this.managerID = managerID;
+
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this.employeesService
+            .getEmployeeList(
+              this.searchForm.value.nameFormControl,
+              managerID,
+              this.sort.active,
+              this.sort.direction,
+              this.paginator.pageIndex,
+              this.paginator.pageSize
+            )
+            .pipe(catchError(() => of(null)));
+        }),
+        map((res: any) => {
+          this.isLoadingResults = false;
+          if (res === null) {
+            this.isRateLimitReached = true;
+            return [];
+          }
+          this.isRateLimitReached = false;
+          this.resultsLength = res.totalCount;
+          return res.myEmployeeList;
+        })
+      )
+      .subscribe(
+        (data: any) => (this.employeeList = new MatTableDataSource(data))
+      );
+  }
+
+  backEmployeeList() {
+    this.getEmployeeList();
   }
 }

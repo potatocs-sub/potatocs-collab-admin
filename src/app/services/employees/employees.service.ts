@@ -14,20 +14,21 @@ export class EmployeesService {
   // 직원 목록
   getEmployeeList(
     nameFormControl: string,
+    managerID: string,
     active: string,
     direction: string,
     pageIndex: number,
     pageSize: number
   ) {
     return this.http.get(this.baseUrl + '/admin/employees', {
-      params: { nameFormControl, active, direction, pageIndex, pageSize },
-    });
-  }
-
-  // admin Employee List 에서 employee 누르면 되는 부분
-  getManagerEmployee(managerID: any) {
-    return this.http.get(this.baseUrl + '/admin/leave/getManagerEmployee', {
-      params: managerID,
+      params: {
+        nameFormControl,
+        managerID,
+        active,
+        direction,
+        pageIndex,
+        pageSize,
+      },
     });
   }
 

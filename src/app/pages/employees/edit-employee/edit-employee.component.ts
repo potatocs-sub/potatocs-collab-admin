@@ -73,7 +73,7 @@ export class EditEmployeeComponent {
       ?.setValue(user.replacement_leave);
   }
 
-  backManagerList() {
+  backEmployeeList() {
     this.router.navigate(['employees/list']);
   }
 
