@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
-import { EmployeesRetiredComponent } from './employees-retired/employees-retired.component';
 import { EmployeesLeaveStatusComponent } from './employees-leave-status/employees-leave-status.component';
 import { EmploymentContractComponent } from './employment-contract/employment-contract.component';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
+import { RetiredEmployeesComponent } from './retired-employees/retired-employees.component';
 
 export const EMPLOYEES_ROUTES: Route[] = [
   {
@@ -29,7 +29,7 @@ export const EMPLOYEES_ROUTES: Route[] = [
   },
   {
     path: 'retired', // 퇴사 직원들 목록
-    loadComponent: () => EmployeesRetiredComponent,
+    loadComponent: () => RetiredEmployeesComponent,
   },
   {
     path: '**',
