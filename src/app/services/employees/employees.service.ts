@@ -53,19 +53,33 @@ export class EmployeesService {
     );
   }
 
-  // admin employee leave status 부분
-  getEmployeeLeaveListSearch(data: any) {
-    return this.http.get(
-      this.baseUrl + '/admin/leave/employeeLeaveListSearch',
-      { params: data }
-    );
-  }
-
   // 직원 목록 excel 추가
   addExcelEmployeeList(data: any) {
     return this.http.post(
       this.baseUrl + '/admin/employees/addExcelEmployeeList',
       data
+    );
+  }
+
+  // 직원 목록
+  getEmployeeLeaveStatus(
+    emailFormControl: string,
+    active: string,
+    direction: string,
+    pageIndex: number,
+    pageSize: number
+  ) {
+    return this.http.get(
+      this.baseUrl + '/admin/employees/getEmployeeLeaveStatus',
+      {
+        params: {
+          emailFormControl,
+          active,
+          direction,
+          pageIndex,
+          pageSize,
+        },
+      }
     );
   }
 }
