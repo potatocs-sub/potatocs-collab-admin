@@ -11,29 +11,27 @@ export class HolidaysService {
   private http = inject(HttpClient);
   constructor() {}
 
-  // 회사 휴일 목록 불러오기
-  getCompanyHoliday(
+  // 휴일 목록
+  getHolidayList(
+    nameFormControl: string,
     active: string,
     direction: string,
     pageIndex: number,
     pageSize: number
   ) {
-    return this.http.get(this.baseUrl + '/admin/leave/getCompanyHolidayList', {
-      params: { active, direction, pageIndex, pageSize },
+    return this.http.get(this.baseUrl + '/admin/holidays', {
+      params: { nameFormControl, active, direction, pageIndex, pageSize },
     });
   }
 
-  addCompanyHoliday(data: any) {
-    return this.http.post(
-      this.baseUrl + '/admin/leave/addCompanyHoliday',
-      data
-    );
+  addHoliday(data: any) {
+    return this.http.post(this.baseUrl + '/admin/holidays', data);
   }
 
-  deleteCompanyHoliday(companyHolidayId: any) {
+  deleteHoliday(data: any) {
     return this.http.post(
-      this.baseUrl + '/admin/leave/deleteCompanyHoliday',
-      companyHolidayId
+      this.baseUrl + '/admin/holidays/deleteholidays',
+      data
     );
   }
 }

@@ -1,13 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild, inject, signal } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { MaterialsModule } from '../../materials/materials.module';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { catchError, map, merge, of, startWith, switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { CompanyHolidayAddDialogComponent } from '../../components/dialogs/company-holiday-add-dialog/company-holiday-add-dialog.component';
 import { HolidaysService } from '../../services/holidays/holidays.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AddHolidaysDialogComponent } from '../../components/dialogs/add-holidays-dialog/add-holidays-dialog.component';
+import { DialogService } from '../../stores/dialog/dialog.service';
 
 @Component({
   selector: 'app-holidays',
@@ -18,39 +20,43 @@ import { HolidaysService } from '../../services/holidays/holidays.service';
 })
 export class HolidaysComponent {
   holidaysService = inject(HolidaysService);
+  public dialog = inject(MatDialog);
+  public dialogService = inject(DialogService);
+  fb = inject(FormBuilder);
 
-  company: any;
-  manager: any;
+  displayedColumns: string[] = ['name', 'date', 'deleteButton'];
+  HolidayList = new MatTableDataSource();
+  searchForm: FormGroup;
 
-  isLoadingResults = signal<boolean>(true);
-  isRateLimitReached = signal<boolean>(false);
-
-  companyHolidayList = new MatTableDataSource();
-
-  // view table
-  displayedColumns: string[] = ['ch_name', 'ch_date', 'menu'];
+  pageSize = 10;
+  resultsLength = 0;
+  isLoadingResults = true;
+  isRateLimitReached = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  pageSize = signal<number>(10);
-  resultsLength = signal<number>(0);
 
-  constructor(public dialog: MatDialog) {}
-
-  ngAfterViewInit() {
-    this.getCompanyHolidayList();
+  constructor() {
+    this.searchForm = this.fb.group({
+      nameFormControl: new FormControl(''),
+    });
   }
 
-  getCompanyHolidayList() {
+  ngAfterViewInit() {
+    this.getHolidayList();
+  }
+
+  getHolidayList() {
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
-          this.isLoadingResults.set(true);
+          this.isLoadingResults = true;
           return this.holidaysService
-            .getCompanyHoliday(
+            .getHolidayList(
+              this.searchForm.value.nameFormControl,
               this.sort.active,
               this.sort.direction,
               this.paginator.pageIndex,
@@ -59,30 +65,46 @@ export class HolidaysComponent {
             .pipe(catchError(() => of(null)));
         }),
         map((res: any) => {
-          this.isLoadingResults.set(false);
+          console.log(res);
+          this.isLoadingResults = false;
           if (res === null) {
-            this.isRateLimitReached.set(true);
+            this.isRateLimitReached = true;
             return [];
           }
-          this.isRateLimitReached.set(false);
-          this.resultsLength = res.total_count;
-          return res.myEmployeeList;
+          this.isRateLimitReached = false;
+          this.resultsLength = res.totalCount;
+          return res.data;
         })
       )
-      .subscribe((data: any) => (this.companyHolidayList = data));
+      .subscribe((data: any) => (this.HolidayList = data));
   }
 
-  openAddCompanyHoliday() {
-    const dialogRef = this.dialog.open(CompanyHolidayAddDialogComponent, {
+  openAddHoliday() {
+    const dialogRef = this.dialog.open(AddHolidaysDialogComponent, {
       data: {
-        companyHolidayList: this.companyHolidayList,
+        holidayList: this.HolidayList,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.getCompanyHolidayList();
+      this.getHolidayList();
     });
   }
 
-  deleteCompanyHoliday(id: any) {}
+  deleteHoliday(id: any) {
+    const data = {
+      _id: id,
+    };
+
+    this.dialogService
+      .openDialogConfirm(`Do you want to delete request?`)
+      .subscribe((result) => {
+        if (result) {
+          this.holidaysService.deleteHoliday(data).subscribe(() => {
+            this.dialogService.openDialogPositive('request has been delete.');
+            this.getHolidayList();
+          });
+        }
+      });
+  }
 }
