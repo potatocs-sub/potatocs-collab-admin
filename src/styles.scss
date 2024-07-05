@@ -58,6 +58,7 @@ body {
 .small-input {
   .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
     height: 50px !important;
+    max-width: 150px !important;
   }
 
   .mat-mdc-form-field-subscript-wrapper {
