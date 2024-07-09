@@ -110,7 +110,6 @@ export class ProfileComponent {
 
         this.profileService.updateProfile(patchData).subscribe({
           next: (res) => {
-            console.log(res);
             this.refreshProfie();
             this.dialogService.openDialogPositive(
               'Successfully updated profile.'
