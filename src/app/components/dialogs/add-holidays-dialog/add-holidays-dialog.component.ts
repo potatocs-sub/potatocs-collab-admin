@@ -55,9 +55,7 @@ export class AddHolidaysDialogComponent {
     this.holidaysService.addHoliday(holidayData).subscribe({
       next: (data: any) => {
         this.dialogRef.close();
-        this.dialogService.openDialogPositive(
-          'Successfully, a holiday has been added.'
-        );
+        this.dialogService.openDialogPositive('Successfully added holiday.');
       },
       error: (err: any) => {
         if (err.error.message == 'Duplicate holiday error.') {

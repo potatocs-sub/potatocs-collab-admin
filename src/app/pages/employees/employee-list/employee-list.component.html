@@ -41,7 +41,7 @@
       <div class="flex items-center gap-3 border p-3 mb-3">
         <mat-icon>system_update</mat-icon>
         <button mat-raised-button color="primary" (click)="exportFormat()">
-          Download a format guide
+          Download Format Guide
         </button>
         <button mat-raised-button color="primary" (click)="exportData()">
           Download Employee List
@@ -75,7 +75,7 @@
 
       <ng-container matColumnDef="annual_leave">
         <th mat-header-cell *matHeaderCellDef class="font-bold">
-          Taken/Entitlement
+          Annual Leave
         </th>
         <td mat-cell *matCellDef="let element">
           {{ element.usedLeave.used_annual_leave[0]?.sum || 0 }} /
@@ -84,9 +84,7 @@
       </ng-container>
 
       <ng-container matColumnDef="sick_leave">
-        <th mat-header-cell *matHeaderCellDef class="font-bold">
-          Taken/Sick Leave
-        </th>
+        <th mat-header-cell *matHeaderCellDef class="font-bold">Sick Leave</th>
         <td mat-cell *matCellDef="let element">
           {{ element.usedLeave.used_sick_leave[0]?.sum || 0 }} /
           {{ element.totalLeave?.sick_leave || 0 }} day
@@ -94,7 +92,9 @@
       </ng-container>
 
       <ng-container matColumnDef="replacementday_leave">
-        <th mat-header-cell *matHeaderCellDef class="font-bold">Taken/RD</th>
+        <th mat-header-cell *matHeaderCellDef class="font-bold">
+          Replacement Day
+        </th>
         <td mat-cell *matCellDef="let element">
           {{ element.usedLeave.used_replacement_leave[0]?.sum || 0 }} /
           {{ element.totalLeave?.replacement_leave || 0 }} day
@@ -102,9 +102,7 @@
       </ng-container>
 
       <ng-container matColumnDef="start_date">
-        <th mat-header-cell *matHeaderCellDef class="font-bold">
-          Contract Start
-        </th>
+        <th mat-header-cell *matHeaderCellDef class="font-bold">Start Date</th>
         <td mat-cell *matCellDef="let element">
           {{ element.emp_start_date | date : "YYYY-MM-dd" }}
         </td>
@@ -132,7 +130,7 @@
             color="primary"
             (click)="getMyManagerEmployeeList(element._id, element.name)"
           >
-            employee
+            Employee
           </button>
           }
         </td>
