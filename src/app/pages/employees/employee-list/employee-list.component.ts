@@ -105,7 +105,7 @@ export class EmployeeListComponent {
           }
           this.isRateLimitReached = false;
           this.resultsLength = res.totalCount;
-          return res.myEmployeeList;
+          return res.data;
         })
       )
       .subscribe(
@@ -127,7 +127,8 @@ export class EmployeeListComponent {
 
   onFileChange(event: any) {
     const target: DataTransfer = <DataTransfer>event.target;
-    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+    if (target.files.length !== 1)
+      throw new Error('Multiple files cannot be used.');
     const reader: FileReader = new FileReader();
     reader.onload = (e: any) => {
       const bstr: string = e.target.result;
@@ -168,7 +169,7 @@ export class EmployeeListComponent {
 
       if (filteredImportedData.length > 0) {
         return this.dialogService.openDialogNegative(
-          'There is an empty value on required inputs with (*). Check the excel file.'
+          'Required fields marked with (*) are empty. Please check the Excel file.'
         );
       }
 
@@ -189,16 +190,14 @@ export class EmployeeListComponent {
 
       this.employeesService.addExcelEmployeeList(this.importContacts).subscribe(
         async (data: any) => {
-          if (data.message == 'success') {
-            this.dialogService.openDialogPositive(
-              'Successfully, the file information has been uploaded.'
-            );
-          }
+          this.dialogService.openDialogPositive(
+            'Successfully uploaded the file information.'
+          );
           this.getEmployeeList();
         },
         (err) => {
           console.log(err.error);
-          this.errorAlert(err.error.message);
+          this.dialogService.openDialogNegative(err.error.message);
         }
       );
     };
@@ -218,34 +217,36 @@ export class EmployeeListComponent {
   errorAlert(err: any) {
     switch (err) {
       case 'not found email': // 엑셀에 입력된 이메일이 없으면
-        this.dialogService.openDialogNegative('Cannot find a email.');
+        this.dialogService.openDialogNegative('Email cannot be found.');
         break;
       case 'not found emp_start_date': // 엑셀에 입력된 계약시작일이 없으면
-        this.dialogService.openDialogNegative('Start Date must required');
+        this.dialogService.openDialogNegative('Start Date is required.');
         break;
       case 'not match date': // 엑셀에 입력된 계약시작일 형식이 잘못됐거나, 셀의 표시형식이 '일반'이 아닌 '날짜'인 경우
         this.dialogService.openDialogNegative(
-          "The format of the start date is wrong. Please, change the type 'Short Date' to 'General'"
+          "The format of the start date is incorrect. Please change the type from 'Short Date' to 'General.'"
         );
         break;
       case 'found retired manager': // 엑셀에 입력된 매니저 ID가 퇴사자이면
-        this.dialogService.openDialogNegative('Found a retired manager.');
+        this.dialogService.openDialogNegative(
+          'Retired manager has been found.'
+        );
         break;
       case 'not found manager id': // 엑셀에 입력된 매니저 ID가 Member DB에 없으면
         this.dialogService.openDialogNegative('Cannot find a manager.');
         break;
       case 'not found Member': // 엑셀에 입력된 아이디가 DB에 없거나, 회원가입된 아이디가 아니면 에러 메시지
-        this.dialogService.openDialogNegative('Cannot find a member');
+        this.dialogService.openDialogNegative('Cannot find a member.');
         break;
       case 'found retired Employee': // 엑셀에 입력된 아이디가 퇴사자면
-        this.dialogService.openDialogNegative('Found a retired member');
+        this.dialogService.openDialogNegative('Found a retired member.');
         break;
       case 'Cannot update Member': // 회원정보 업데이트 실패
         this.dialogService.openDialogNegative('An error has occurred.');
         break;
       case 'failed': // 서버에러
         this.dialogService.openDialogNegative(
-          'An error has occurred in the server'
+          'An error has occurred in the server.'
         );
         break;
     }
@@ -285,7 +286,7 @@ export class EmployeeListComponent {
           }
           this.isRateLimitReached = false;
           this.resultsLength = res.totalCount;
-          return res.myEmployeeList;
+          return res.data;
         })
       )
       .subscribe(

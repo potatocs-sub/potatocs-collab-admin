@@ -46,7 +46,7 @@ export class AddHolidaysDialogComponent {
         if (this.data.holidayList[i].ch_date == convertDate) {
           this.dialogRef.close();
           return this.dialogService.openDialogNegative(
-            'The holiday is duplicated.'
+            'The holiday is duplicate.'
           );
         }
       }
@@ -58,11 +58,8 @@ export class AddHolidaysDialogComponent {
         this.dialogService.openDialogPositive('Successfully added holiday.');
       },
       error: (err: any) => {
-        if (err.error.message == 'Duplicate holiday error.') {
-          this.dialogService.openDialogNegative('The holiday is duplicated.');
-        } else if (err.error.message == 'Addings holiday Error') {
-          this.dialogService.openDialogNegative('An error has occurred.');
-        }
+        console.log(err);
+        this.dialogService.openDialogNegative(err.error.message);
       },
     });
   }

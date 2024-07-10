@@ -53,12 +53,12 @@ export class EmployeesLeaveStatusComponent {
   }
 
   ngAfterViewInit() {
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-
     this.getEmployeeLeaveStatus();
   }
 
   getEmployeeLeaveStatus() {
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -82,9 +82,9 @@ export class EmployeesLeaveStatusComponent {
           }
           this.isRateLimitReached = false;
           this.resultsLength = res.totalCount;
-          return res.myEmployeeList;
+          return res.data;
         })
       )
-      .subscribe((data: any) => ((this.dataSource = data), console.log(data)));
+      .subscribe((data: any) => (this.dataSource = data));
   }
 }

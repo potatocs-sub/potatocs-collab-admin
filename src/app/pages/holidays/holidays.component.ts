@@ -65,7 +65,6 @@ export class HolidaysComponent {
             .pipe(catchError(() => of(null)));
         }),
         map((res: any) => {
-          console.log(res);
           this.isLoadingResults = false;
           if (res === null) {
             this.isRateLimitReached = true;
@@ -97,11 +96,13 @@ export class HolidaysComponent {
     };
 
     this.dialogService
-      .openDialogConfirm(`Do you want to delete request?`)
+      .openDialogConfirm(`Do you want to delete this holiday?`)
       .subscribe((result) => {
         if (result) {
           this.holidaysService.deleteHoliday(data).subscribe(() => {
-            this.dialogService.openDialogPositive('request has been delete.');
+            this.dialogService.openDialogPositive(
+              'Successfully deleted holiday.'
+            );
             this.getHolidayList();
           });
         }

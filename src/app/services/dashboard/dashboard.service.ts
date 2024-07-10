@@ -11,7 +11,7 @@ export class DashboardService {
   private http = inject(HttpClient);
   constructor() {}
 
-  // 대쉬보드 목록
+  // 대쉬보드
   getDashboard() {
     return this.http.get(this.baseUrl + '/admin/dashboard');
   }

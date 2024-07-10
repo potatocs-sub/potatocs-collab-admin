@@ -32,7 +32,7 @@ export class DashboardComponent {
         this.holiday = data.countHoliday;
       },
       (err: any) => {
-        console.log(err.error);
+        console.log(err);
       }
     );
   }

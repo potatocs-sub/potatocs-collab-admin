@@ -68,6 +68,7 @@ export class addRetiredEmployeesDialogComponent {
 
   getEmployeeList() {
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -93,7 +94,7 @@ export class addRetiredEmployeesDialogComponent {
           }
           this.isRateLimitReached = false;
           this.resultsLength = res.totalCount;
-          return res.myEmployeeList;
+          return res.data;
         })
       )
       .subscribe((data: any) => (this.employeeList.data = data));
@@ -102,7 +103,7 @@ export class addRetiredEmployeesDialogComponent {
   add(id: any) {
     const formValue = this.employeeListForm.value;
     this.dialogService
-      .openDialogConfirm(`Do you want to retire the member?`)
+      .openDialogConfirm(`Do you want to retire this employee?`)
       .subscribe((result) => {
         if (result) {
           this.retiredEmployeesService
@@ -113,7 +114,7 @@ export class addRetiredEmployeesDialogComponent {
             .subscribe({
               next: (res: any) => {
                 this.dialogService.openDialogPositive(
-                  'request has been accepted.'
+                  'Successfully retired employee.'
                 );
                 this.dialogRef.close();
               },

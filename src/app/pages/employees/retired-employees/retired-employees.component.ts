@@ -50,12 +50,12 @@ export class RetiredEmployeesComponent {
   }
 
   ngAfterViewInit() {
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-
     this.getRetiredEmployeeList();
   }
 
   getRetiredEmployeeList() {
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -80,7 +80,7 @@ export class RetiredEmployeesComponent {
           }
           this.isRateLimitReached = false;
           this.resultsLength = res.totalCount;
-          return res.myEmployeeList;
+          return res.data;
         })
       )
       .subscribe((data: any) => (this.dataSource = data));
@@ -93,13 +93,15 @@ export class RetiredEmployeesComponent {
 
   cancel(id: string) {
     this.dialogService
-      .openDialogConfirm(`Do you want to cancel request?`)
+      .openDialogConfirm(`Do you want to cancel this retired employee?`)
       .subscribe((result) => {
         if (result) {
           this.retiredEmployeesService
             .cancelRetireEmployee(id)
             .subscribe(() => {
-              this.dialogService.openDialogPositive('request has been cancel.');
+              this.dialogService.openDialogPositive(
+                'Successfully cancel retired employee.'
+              );
               this.getRetiredEmployeeList();
             });
         }

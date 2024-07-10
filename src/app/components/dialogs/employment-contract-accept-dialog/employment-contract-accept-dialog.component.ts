@@ -49,7 +49,7 @@ export class EmploymentContractAcceptDialogComponent {
             .subscribe({
               next: (res: any) => {
                 this.dialogService.openDialogPositive(
-                  sendData.name + "'s request has been accepted."
+                  'Successfully accepted' + sendData.name + "'s request."
                 );
                 this.dialogRef.close();
               },

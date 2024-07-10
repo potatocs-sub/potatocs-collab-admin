@@ -44,12 +44,12 @@ export class EmploymentContractComponent {
   }
 
   ngAfterViewInit() {
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-
     this.getEmploymentContract();
   }
 
   getEmploymentContract() {
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -107,7 +107,7 @@ export class EmploymentContractComponent {
             .subscribe({
               next: (res: any) => {
                 this.dialogService.openDialogPositive(
-                  name + "'s request has been rejected."
+                  'Successfully rejected' + name + "'s request."
                 );
                 this.getEmploymentContract();
               },

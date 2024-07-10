@@ -58,7 +58,6 @@ export class EditEmployeeComponent {
   }
 
   setEmployeeFormValue(user: any) {
-    console.log(user);
     this.employeeDetailForm.get('name')?.setValue(user.name);
     this.employeeDetailForm.get('position')?.setValue(user.position);
     this.employeeDetailForm.get('location')?.setValue(user.location);
@@ -80,7 +79,7 @@ export class EditEmployeeComponent {
   editEmployeeDetail() {
     if (this.employeeDetailForm.valid) {
       this.dialogService
-        .openDialogConfirm('Do you want to edit the employee detail?')
+        .openDialogConfirm('Do you want to edit this employee detail?')
         .subscribe((result) => {
           if (result) {
             let employeeInfo: any;
@@ -107,20 +106,14 @@ export class EditEmployeeComponent {
 
             this.employeesService.editEmployeeDetail(employeeInfo).subscribe(
               (data: any) => {
-                if (data.message == 'updated') {
-                  this.router.navigate(['employees/list']);
-                  this.dialogService.openDialogPositive(
-                    'Successfully, the information has been edited!'
-                  );
-                }
+                this.router.navigate(['employees/list']);
+                this.dialogService.openDialogPositive(
+                  'Successfully edited employee detail.'
+                );
               },
               (err) => {
                 console.log(err);
-                if (err.error.message == 'An error has occurred') {
-                  this.dialogService.openDialogNegative(
-                    'An error has occurred.'
-                  );
-                }
+                this.dialogService.openDialogNegative(err.error.message);
               }
             );
           }
@@ -131,7 +124,7 @@ export class EditEmployeeComponent {
   editEmployeeLeave() {
     if (this.employeeLeaveForm.valid) {
       this.dialogService
-        .openDialogConfirm('Do you want to edit the employee leave?')
+        .openDialogConfirm('Do you want to edit this employee leave?')
         .subscribe((result) => {
           if (result) {
             let employeeInfo;
@@ -146,12 +139,10 @@ export class EditEmployeeComponent {
 
             this.employeesService.editEmployeeLeave(employeeInfo).subscribe(
               (data: any) => {
-                if (data.message == 'updated') {
-                  this.router.navigate(['employees/list']);
-                  this.dialogService.openDialogPositive(
-                    'Successfully, the information has been edited!'
-                  );
-                }
+                this.router.navigate(['employees/list']);
+                this.dialogService.openDialogPositive(
+                  'Successfully edited employee leave.'
+                );
               },
               (err) => {
                 console.log(err);
