@@ -5,30 +5,30 @@ import { Observable } from 'rxjs';
 import { HttpResMsg } from '../../interfaces/http-response.interfac';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class ProfileService {
-  private baseUrl = environment.apiUrl;
+    private baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-  changeProfileImg(imgae: File, id: string): Observable<HttpResMsg<any>> {
-    const formData: FormData = new FormData();
-    formData.append('file', imgae, imgae?.name);
-    formData.append('id', id);
-    return this.http.post<HttpResMsg<any>>(
-      this.baseUrl + '/admin/profiles',
-      formData,
-      {
-        reportProgress: true,
-      }
-    );
-  }
+    changeProfileImg(image: File, id: string): Observable<HttpResMsg<any>> {
+        const formData: FormData = new FormData();
+        formData.append('nsProfile_img', image, image?.name);
+        formData.append('id', id);
+        return this.http.post<HttpResMsg<any>>(
+            this.baseUrl + '/admin/profiles',
+            formData,
+            {
+                reportProgress: true,
+            }
+        );
+    }
 
-  updateProfile(formData: any): Observable<HttpResMsg<any>> {
-    return this.http.patch<HttpResMsg<any>>(
-      this.baseUrl + '/admin/profiles',
-      formData
-    );
-  }
+    updateProfile(formData: any): Observable<HttpResMsg<any>> {
+        return this.http.patch<HttpResMsg<any>>(
+            this.baseUrl + '/admin/profiles',
+            formData
+        );
+    }
 }

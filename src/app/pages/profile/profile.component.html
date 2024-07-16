@@ -1,100 +1,61 @@
 <form [formGroup]="editProfileForm" novalidate>
-  <div class="m-10">
-    <div class="text-[22px] font-bold mb-16">Edit Profile</div>
+    <div class="m-10">
+        <div class="text-[22px] font-bold mb-16">Edit Profile</div>
 
-    <div class="flex flex-col justify-between items-center gap-5">
-      <ng-container *ngIf="userInfoStore().profile_img; else iconTemplate">
-        <img
-          [src]="userInfoStore().profile_img"
-          class="w-[200px] h-[200px] border border-gray-300 rounded-full"
-        />
-      </ng-container>
+        <div class="flex flex-col justify-between items-center gap-5">
+            <ng-container *ngIf="userInfoStore().profile_img; else iconTemplate">
+                <img [src]="userInfoStore().profile_img"
+                    class="w-[200px] h-[200px] border border-gray-300 rounded-full" />
+            </ng-container>
 
-      <ng-template #iconTemplate>
-        <mat-icon class="w-[200px] h-[200px] text-[200px] text-[#00154f]"
-          >account_circle</mat-icon
-        >
-      </ng-template>
-      <label>
-        <input
-          type="file"
-          id="fileInput"
-          #fileInputElement
-          style="display: none"
-          (change)="fileChangeEvent($event)"
-          accept="image/*"
-        />
-        <button
-          mat-stroked-button
-          type="button"
-          (click)="fileInputElement.click()"
-        >
-          Change
-        </button>
-      </label>
+            <ng-template #iconTemplate>
+                <mat-icon class="w-[200px] h-[200px] text-[200px] text-[#00154f]">account_circle</mat-icon>
+            </ng-template>
+            <label>
+                <input type="file" id="fileInput" #fileInputElement style="display: none"
+                    (change)="fileChangeEvent($event)" accept="image/*" />
+                <button mat-stroked-button type="button" (click)="fileInputElement.click()">
+                    Change
+                </button>
+            </label>
 
-      <div>ID : {{ userInfoStore().email }}</div>
-    </div>
-    <div class="flex flex-col justify-between items-center mt-5">
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" />
-        <mat-error
-          *ngIf="editProfileForm.controls['name'].hasError('required')"
-        >
-          Please enter name.
-        </mat-error>
-      </mat-form-field>
+            <div>ID : {{ userInfoStore().email }}</div>
+        </div>
+        <div class="flex flex-col justify-between items-center mt-5">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" />
+                <mat-error *ngIf="editProfileForm.controls['name'].hasError('required')">
+                    Please enter name.
+                </mat-error>
+            </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>New Password</mat-label>
-        <input
-          type="password"
-          matInput
-          formControlName="password"
-          minlength="4"
-          maxlength="15"
-        />
-        <mat-error
-          *ngIf="
+            <mat-form-field appearance="fill">
+                <mat-label>New Password</mat-label>
+                <input type="password" matInput formControlName="password" minlength="4" maxlength="15" />
+                <mat-error *ngIf="
             editProfileForm.controls['password'].hasError('minlength') ||
             editProfileForm.controls['password'].hasError('maxlength')
-          "
-        >
-          Please enter 4-15 characters.
-        </mat-error>
-      </mat-form-field>
+          ">
+                    Please enter 4-15 characters.
+                </mat-error>
+            </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Confirm Password</mat-label>
-        <input
-          type="password"
-          matInput
-          formControlName="confirmPassword"
-          minlength="4"
-          maxlength="15"
-        />
-        <mat-error
-          *ngIf="
+            <mat-form-field appearance="fill">
+                <mat-label>Confirm Password</mat-label>
+                <input type="password" matInput formControlName="confirmPassword" minlength="4" maxlength="15" />
+                <mat-error *ngIf="
             editProfileForm.controls['confirmPassword'].hasError('minlength') ||
             editProfileForm.controls['confirmPassword'].hasError('maxlength')
-          "
-        >
-          Please enter 4-15 characters.
-        </mat-error>
-      </mat-form-field>
-      <mat-error *ngIf="editProfileForm.errors" class="text-[12px] px-[17px]"
-        >Passwords do not match.</mat-error
-      >
+          ">
+                    Please enter 4-15 characters.
+                </mat-error>
+            </mat-form-field>
+            <mat-error *ngIf="editProfileForm.errors" class="text-[12px] px-[17px]">Passwords do not match.</mat-error>
 
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="updateProfile()"
-        class="w-[210px] mt-2"
-      >
-        Request
-      </button>
+            <button mat-raised-button color="primary" (click)="updateProfile()" class="w-[210px] mt-2">
+                Request
+            </button>
+        </div>
     </div>
-  </div>
 </form>

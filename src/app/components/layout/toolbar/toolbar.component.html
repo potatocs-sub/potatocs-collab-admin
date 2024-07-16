@@ -1,35 +1,30 @@
 <mat-toolbar class="h-[65px] bg-[#00154F] text-white border-l">
-  @if(!isDesktop()){
-  <button mat-icon-button class="mr-8 ml-5" (click)="openSidenav()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  }
-
-  <span class="flex flex-1"></span>
-  <div>
-    <button mat-button [matMenuTriggerFor]="profile">
-      <div class="flex flex-row justify-center items-center gap-3">
-        <ng-container *ngIf="userInfo().profile_img; else iconTemplate">
-          <img
-            class="w-[35px] h-[35px] bg-white rounded-full"
-            [src]="userInfo().profile_img"
-          />
-        </ng-container>
-        <ng-template #iconTemplate>
-          <mat-icon class="w-[35px] h-[35px] text-[35px] text-white"
-            >account_circle</mat-icon
-          >
-        </ng-template>
-        <span class="text-base text-white">{{ userInfo()?.name }}</span>
-      </div>
+    @if(!isDesktop()){
+    <button mat-icon-button class="mr-8 ml-5" (click)="openSidenav()">
+        <mat-icon>menu</mat-icon>
     </button>
-    <mat-menu class="mt-4" #profile="matMenu" xPosition="before">
-      <button mat-menu-item [routerLink]="['/profile']">
-        <mat-icon>account_circle</mat-icon>Profile
-      </button>
-      <button mat-menu-item (click)="logOut()">
-        <mat-icon>lock_open</mat-icon>Logout
-      </button>
-    </mat-menu>
-  </div>
+    }
+
+    <span class="flex flex-1"></span>
+    <div>
+        <button mat-button [matMenuTriggerFor]="profile">
+            <div class="flex flex-row justify-center items-center gap-3">
+                <ng-container *ngIf="userInfo().profile_img; else iconTemplate">
+                    <img class="w-[35px] h-[35px] bg-white rounded-full" [src]="userInfo().profile_img" />
+                </ng-container>
+                <ng-template #iconTemplate>
+                    <mat-icon class="w-[35px] h-[35px] text-[35px] text-white">account_circle</mat-icon>
+                </ng-template>
+                <span class="text-base text-white">{{ userInfo()?.name }}</span>
+            </div>
+        </button>
+        <mat-menu class="mt-4" #profile="matMenu" xPosition="before">
+            <button mat-menu-item [routerLink]="['/profile']">
+                <mat-icon>account_circle</mat-icon>Profile
+            </button>
+            <button mat-menu-item (click)="logOut()">
+                <mat-icon>lock_open</mat-icon>Logout
+            </button>
+        </mat-menu>
+    </div>
 </mat-toolbar>
