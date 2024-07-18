@@ -63,6 +63,8 @@ export class EmployeesService {
 
   // 직원 목록
   getEmployeeLeaveStatus(
+    startDateFormControl: string,
+    endDateFormControl: string,
     emailFormControl: string,
     active: string,
     direction: string,
@@ -73,6 +75,8 @@ export class EmployeesService {
       this.baseUrl + '/admin/employees/getEmployeeLeaveStatus',
       {
         params: {
+          startDateFormControl,
+          endDateFormControl,
           emailFormControl,
           active,
           direction,

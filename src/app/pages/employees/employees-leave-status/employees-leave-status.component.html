@@ -4,8 +4,37 @@
   <div>
     <div class="flex items-center justify-between">
       <form [formGroup]="searchForm" novalidate>
-        <mat-form-field>
-          <mat-label>Email</mat-label>
+        <span class="small-input-date">
+          <mat-form-field>
+            <mat-label>Start Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker1"
+              formControlName="startDateFormControl"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          ~
+          <mat-form-field>
+            <mat-label>End Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker2"
+              formControlName="endDateFormControl"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </span>
+        <mat-form-field class="ml-3">
+          <mat-label>Requestor Email</mat-label>
           <input
             matInput
             type="text"
@@ -70,7 +99,13 @@
       <ng-container matColumnDef="leaveType">
         <th mat-header-cell *matHeaderCellDef class="font-bold">Type</th>
         <td mat-cell *matCellDef="let element">
-          {{ viewType[element.leaveType] }}
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="openLeaveStatusDetail(element)"
+          >
+            {{ viewType[element.leaveType] }}
+          </button>
         </td>
       </ng-container>
 

@@ -8,6 +8,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { catchError, map, merge, of, startWith, switchMap } from 'rxjs';
 import { EmployeesService } from '../../../services/employees/employees.service';
 import { ExcelService } from '../../../services/excel/excel.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LeaveStatusDetailDialogComponent } from '../../../components/dialogs/leave-status-detail/leave-status-detail-dialog.component';
 
 @Component({
   selector: 'app-employees-leave-status',
@@ -19,6 +21,7 @@ import { ExcelService } from '../../../services/excel/excel.service';
 export class EmployeesLeaveStatusComponent {
   employeesService = inject(EmployeesService);
   excelService = inject(ExcelService);
+  dialog = inject(MatDialog);
   fb = inject(FormBuilder);
 
   displayedColumns: string[] = [
@@ -50,6 +53,8 @@ export class EmployeesLeaveStatusComponent {
 
   constructor() {
     this.searchForm = this.fb.group({
+      startDateFormControl: new FormControl(''),
+      endDateFormControl: new FormControl(''),
       emailFormControl: new FormControl(''),
     });
   }
@@ -68,6 +73,8 @@ export class EmployeesLeaveStatusComponent {
           this.isLoadingResults = true;
           return this.employeesService
             .getEmployeeLeaveStatus(
+              this.searchForm.value.startDateFormControl,
+              this.searchForm.value.endDateFormControl,
               this.searchForm.value.emailFormControl,
               this.sort.active,
               this.sort.direction,
@@ -92,5 +99,25 @@ export class EmployeesLeaveStatusComponent {
 
   exportData() {
     this.excelService.exportToData(this.dataSource);
+  }
+
+  openLeaveStatusDetail(data: any) {
+    const dialogRef = this.dialog.open(LeaveStatusDetailDialogComponent, {
+      data: {
+        requestor: data._id,
+        requestorName: data.name,
+        leaveType: data.leaveType,
+        leaveDuration: data.duration,
+        leave_end_date: data.endDate,
+        leave_start_date: data.startDate,
+        leave_reason: data.leave_reason,
+        status: data.status,
+        createdAt: data.createdAt,
+        approver: data.approver,
+        rejectReason: data.rejectReason,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 }
