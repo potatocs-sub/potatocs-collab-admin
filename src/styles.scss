@@ -82,10 +82,3 @@ body {
     width: 144px !important;
   }
 }
-
-// leave status detail dialog button 스크롤 버그 수정
-.button {
-  .mat-mdc-raised-button .mat-mdc-button-touch-target {
-    height: 0px !important;
-  }
-}

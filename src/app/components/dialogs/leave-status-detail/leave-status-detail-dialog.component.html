@@ -1,70 +1,82 @@
-<div>Leave Request Details</div>
-<table>
-  <tbody>
-    <tr>
-      <th>Status</th>
-      <td
-        [ngClass]="{
-          approve: data.status == 'approve',
-          reject: data.status == 'reject'
-        }"
-      >
-        {{ data.status | titlecase }}
-      </td>
-    </tr>
-    <tr>
-      <th>Name</th>
-      <td>
-        {{ data.requestorName }}
-      </td>
-    </tr>
-    <tr>
-      <th>Request day</th>
-      <td>
-        {{ data.createdAt | date : "YYYY-MM-dd" }}
-      </td>
-    </tr>
-    <tr>
-      <th>Leave type</th>
-      <td>
-        {{ viewType[data.leaveType] }}
-      </td>
-    </tr>
-    <tr>
-      <th>Period</th>
-      <td>
-        {{ data.leave_start_date | date : "YYYY-MM-dd" }} ~
-        {{ data.leave_end_date | date : "YYYY-MM-dd" }} ({{
-          data.leaveDuration
-        }}
-        days)
-      </td>
-    </tr>
-    <tr>
-      <th>Leave of used</th>
-      <td>{{ data.leaveDuration }} days</td>
-    </tr>
-    <tr>
-      <th>Reason</th>
-      <td>
-        {{ data.leave_reason }}
-      </td>
-    </tr>
-    <tr *ngIf="data.rejectReason">
-      <th>Reject reason</th>
-      <td [ngClass]="{ reject: data.status == 'reject' }">
-        {{ data.rejectReason }}
-      </td>
-    </tr>
-    <tr *ngIf="data.approver">
-      <th>Confirmor</th>
-      <td>
-        {{ data.approver }}
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="m-10">
+  <div class="text-[22px] font-bold mb-4">Leave Request Details</div>
 
-<div class="button">
-  <button mat-raised-button mat-dialog-close>Confirm</button>
+  <table class="min-w-full divide-y divide-gray-200 text-sm">
+    <tbody class="divide-y divide-gray-200">
+      <tr class="divide-x divide-gray-200">
+        <th class="px-6 py-3 text-left font-medium text-gray-500">Status</th>
+        <td
+          class="px-6 py-4"
+          [ngClass]="{
+            approve: data.status == 'approve',
+            reject: data.status == 'reject'
+          }"
+        >
+          {{ data.status | titlecase }}
+        </td>
+      </tr>
+      <tr class="divide-x divide-gray-200">
+        <th class="px-6 py-3 text-left font-medium text-gray-500">Name</th>
+        <td class="px-6 py-4">
+          {{ data.requestorName }}
+        </td>
+      </tr>
+      <tr class="divide-x divide-gray-200">
+        <th class="px-6 py-3 text-left font-medium text-gray-500">
+          Request day
+        </th>
+        <td class="px-6 py-4">
+          {{ data.createdAt | date : "YYYY-MM-dd" }}
+        </td>
+      </tr>
+      <tr class="divide-x divide-gray-200">
+        <th class="px-6 py-3 text-left font-medium text-gray-500">
+          Leave type
+        </th>
+        <td class="px-6 py-4">
+          {{ viewType[data.leaveType] }}
+        </td>
+      </tr>
+      <tr class="divide-x divide-gray-200">
+        <th class="px-6 py-3 text-left font-medium text-gray-500">Period</th>
+        <td class="px-6 py-4">
+          {{ data.leave_start_date | date : "YYYY-MM-dd" }} ~
+          {{ data.leave_end_date | date : "YYYY-MM-dd" }} ({{
+            data.leaveDuration
+          }}
+          days)
+        </td>
+      </tr>
+      <tr class="divide-x divide-gray-200">
+        <th class="px-6 py-3 text-left font-medium text-gray-500">
+          Leave of used
+        </th>
+        <td class="px-6 py-4">{{ data.leaveDuration }} days</td>
+      </tr>
+      <tr class="divide-x divide-gray-200">
+        <th class="px-6 py-3 text-left font-medium text-gray-500">Reason</th>
+        <td class="px-6 py-4">
+          {{ data.leave_reason }}
+        </td>
+      </tr>
+      <tr *ngIf="data.rejectReason" class="divide-x divide-gray-200">
+        <th class="px-6 py-3 text-left font-medium text-gray-500">
+          Reject reason
+        </th>
+        <td class="px-6 py-4" [ngClass]="{ reject: data.status == 'reject' }">
+          {{ data.rejectReason }}
+        </td>
+      </tr>
+      <tr *ngIf="data.approver" class="divide-x divide-gray-200">
+        <th class="px-6 py-3 text-left font-medium text-gray-500">Confirmor</th>
+        <td class="px-6 py-4">
+          {{ data.approver }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="flex flex-row justify-center items-center gap-5 mt-8">
+    <button mat-raised-button color="primary" mat-dialog-close>Confirm</button>
+  </div>
 </div>
