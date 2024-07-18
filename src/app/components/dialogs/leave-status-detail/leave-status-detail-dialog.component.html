@@ -1,5 +1,5 @@
 <div class="m-10">
-  <div class="text-[22px] font-bold mb-4">Leave Request Details</div>
+  <div class="text-[22px] font-bold mb-4">Leave Status Detail</div>
 
   <table class="min-w-full divide-y divide-gray-200 text-sm">
     <tbody class="divide-y divide-gray-200">
@@ -16,23 +16,21 @@
         </td>
       </tr>
       <tr class="divide-x divide-gray-200">
-        <th class="px-6 py-3 text-left font-medium text-gray-500">Name</th>
+        <th class="px-6 py-3 text-left font-medium text-gray-500">Requestor</th>
         <td class="px-6 py-4">
           {{ data.requestorName }}
         </td>
       </tr>
       <tr class="divide-x divide-gray-200">
         <th class="px-6 py-3 text-left font-medium text-gray-500">
-          Request day
+          Request Day
         </th>
         <td class="px-6 py-4">
           {{ data.createdAt | date : "YYYY-MM-dd" }}
         </td>
       </tr>
       <tr class="divide-x divide-gray-200">
-        <th class="px-6 py-3 text-left font-medium text-gray-500">
-          Leave type
-        </th>
+        <th class="px-6 py-3 text-left font-medium text-gray-500">Type</th>
         <td class="px-6 py-4">
           {{ viewType[data.leaveType] }}
         </td>
@@ -41,17 +39,12 @@
         <th class="px-6 py-3 text-left font-medium text-gray-500">Period</th>
         <td class="px-6 py-4">
           {{ data.leave_start_date | date : "YYYY-MM-dd" }} ~
-          {{ data.leave_end_date | date : "YYYY-MM-dd" }} ({{
-            data.leaveDuration
-          }}
-          days)
+          {{ data.leave_end_date | date : "YYYY-MM-dd" }}
         </td>
       </tr>
       <tr class="divide-x divide-gray-200">
-        <th class="px-6 py-3 text-left font-medium text-gray-500">
-          Leave of used
-        </th>
-        <td class="px-6 py-4">{{ data.leaveDuration }} days</td>
+        <th class="px-6 py-3 text-left font-medium text-gray-500">Day</th>
+        <td class="px-6 py-4">{{ data.leaveDuration }} day</td>
       </tr>
       <tr class="divide-x divide-gray-200">
         <th class="px-6 py-3 text-left font-medium text-gray-500">Reason</th>
@@ -61,7 +54,7 @@
       </tr>
       <tr *ngIf="data.rejectReason" class="divide-x divide-gray-200">
         <th class="px-6 py-3 text-left font-medium text-gray-500">
-          Reject reason
+          Reject Reason
         </th>
         <td class="px-6 py-4" [ngClass]="{ reject: data.status == 'reject' }">
           {{ data.rejectReason }}
