@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { catchError, map, merge, of, startWith, switchMap } from 'rxjs';
 import { EmployeesService } from '../../../services/employees/employees.service';
+import { ExcelService } from '../../../services/excel/excel.service';
 
 @Component({
   selector: 'app-employees-leave-status',
@@ -17,6 +18,7 @@ import { EmployeesService } from '../../../services/employees/employees.service'
 })
 export class EmployeesLeaveStatusComponent {
   employeesService = inject(EmployeesService);
+  excelService = inject(ExcelService);
   fb = inject(FormBuilder);
 
   displayedColumns: string[] = [
@@ -86,5 +88,9 @@ export class EmployeesLeaveStatusComponent {
         })
       )
       .subscribe((data: any) => (this.dataSource = data));
+  }
+
+  exportData() {
+    this.excelService.exportToData(this.dataSource);
   }
 }
